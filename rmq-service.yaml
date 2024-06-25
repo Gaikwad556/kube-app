@@ -8,4 +8,5 @@ spec:
   ports:
   - port: 15672
     targetPort: rmq-port
+    protocol: TCP
   type: ClusterIP
