@@ -13,17 +13,15 @@ spec:
     spec:
       containers:
       - name: vproapp-container
-        image: vprofile/vprofileapp:V1
+        image: vprofile/vprofileapp
         ports:
         - containerPort: 8080
           name: vproapp-port
           
       initContainers:
       - name: init-mydb
-        image: busybox:latest
-        command: ['sh', '-c', 'until nslookup vprodb.default.svc.cluster.local; do echo waiting for mysql; sleep 2; done;']
-
-      - name: init-memecache
-        image: busybox:latest
-        command: ['sh', '-c', 'until nslookup vprocache01.default.svc.cluster.local; do echo waiting for memecache; sleep 2; done;']
-
+        image: busybox
+        command: ['sh', '-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+      - name: init-memcache
+        image: busybox
+        command: ['sh', '-c', 'until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
