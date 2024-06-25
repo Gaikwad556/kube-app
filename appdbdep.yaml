@@ -15,7 +15,7 @@ spec:
         app: vprodb
     spec:
       containers:
-      - name: myapp
+      - name: vprodb
         image: vprofile/vprofiledb:V1
 
         volumeMounts:
