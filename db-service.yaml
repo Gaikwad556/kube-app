@@ -4,7 +4,7 @@ metadata:
   name: vprodb
 spec:
   selector:
-    app: appdb
+    app: vprodb
   ports:
   - port: 3306
     targetPort: appdb-port
